@@ -1,139 +1,94 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Галерея изображений</title>
+    <title>Галерея</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: Arial, sans-serif;
+            background-color: #eef2f5;
             margin: 0;
-            padding: 40px 20px;
+            padding: 50px 20px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
-
-        .gallery-container {
-            width: 100%;
-            max-width: 950px;
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        }
-
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-top: 0;
-            margin-bottom: 30px;
-            font-size: 24px;
-        }
-
-        .slider {
-            margin-bottom: 25px;
-        }
-
-        .slide-item {
-            padding: 0 12px;
-            outline: none;
-        }
-
-        .slide-card {
+        .gallery-wrap {
+            position: relative;
+            width: 940px;
             background: #fff;
+            padding: 40px 50px;
             border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            box-sizing: border-box;
         }
-
-        .slide-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .slide-item img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
+        .slider {
             display: block;
         }
-
+        .slide-item {
+            padding: 0 15px;
+            box-sizing: border-box;
+            outline: none;
+        }
+        .slide-img {
+            width: 260px;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
         .slick-prev, .slick-next {
-            font-size: 0;
-            line-height: 0;
             position: absolute;
             top: 50%;
-            display: block;
-            width: 46px;
-            height: 46px;
-            padding: 0;
             transform: translateY(-50%);
-            cursor: pointer;
-            color: transparent;
-            border: none;
-            outline: none;
-            background: #2c3e50;
+            width: 45px;
+            height: 45px;
+            background: #333;
             border-radius: 50%;
             z-index: 10;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            transition: background 0.2s ease, transform 0.2s ease;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            color: transparent;
         }
-
-        .slick-prev:hover, .slick-next:hover {
-            background: #1a252f;
-            transform: translateY(-50%) scale(1.05);
-        }
-
-        .slick-prev { left: -25px; }
-        .slick-next { right: -25px; }
-
+        .slick-prev { left: -10px; }
+        .slick-next { right: -10px; }
         .slick-prev:before, .slick-next:before {
             font-family: Arial, sans-serif;
-            font-size: 18px;
-            color: white;
+            font-size: 20px;
+            color: #fff;
             opacity: 1;
         }
-
-        .slick-prev:before { content: '❮'; }
-        .slick-next:before { content: '❯'; }
-
+        .slick-prev:before { content: '‹'; }
+        .slick-next:before { content: '›'; }
         .pager {
             text-align: center;
-            font-size: 16px;
-            color: #555;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            background: #f8f9fa;
-            padding: 12px;
-            border-radius: 8px;
+            margin-top: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
         }
-
-        .pager span {
-            color: #2c3e50;
-        }
-
         @media (max-width: 768px) {
-            .gallery-container {
+            .gallery-wrap {
+                width: 100%;
                 padding: 20px;
             }
-            .slick-prev { left: -10px; }
-            .slick-next { right: -10px; }
+            .slide-img {
+                width: 100%;
+                height: 360px;
+            }
+            .slick-prev { left: -5px; }
+            .slick-next { right: -5px; }
         }
     </style>
 </head>
 <body>
-
-    <div class="gallery-container">
-        <h1>Галерея изображений</h1>
+    <div class="gallery-wrap">
         <div class="slider">
             <div class="slide-item"><img src="image1.jpg" alt="Фото 1"></div>
             <div class="slide-item"><img src="image2.jpg" alt="Фото 2"></div>
@@ -144,14 +99,12 @@
             <div class="slide-item"><img src="image7.jpg" alt="Фото 7"></div>
             <div class="slide-item"><img src="image8.jpg" alt="Фото 8"></div>
         </div>
-
         <div class="pager">
             Страница <span id="current-page">1</span> из <span id="total-pages">1</span>
         </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -2,13 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Галерея</title>
+    <title>Галерея изображений</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #eef2f5;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 50px 20px;
             display: flex;
@@ -16,6 +16,7 @@
             align-items: center;
             min-height: 100vh;
         }
+
         .gallery-wrap {
             position: relative;
             width: 940px;
@@ -25,14 +26,17 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.1);
             box-sizing: border-box;
         }
+
         .slider {
             display: block;
         }
+
         .slide-item {
             padding: 0 15px;
             box-sizing: border-box;
             outline: none;
         }
+
         .slide-img {
             width: 260px;
             height: 320px;
@@ -42,6 +46,7 @@
             margin: 0 auto;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
+
         .slick-prev, .slick-next {
             position: absolute;
             top: 50%;
@@ -56,16 +61,20 @@
             outline: none;
             color: transparent;
         }
+
         .slick-prev { left: -10px; }
         .slick-next { right: -10px; }
+
         .slick-prev:before, .slick-next:before {
             font-family: Arial, sans-serif;
-            font-size: 20px;
+            font-size: 22px;
             color: #fff;
             opacity: 1;
         }
+
         .slick-prev:before { content: '‹'; }
         .slick-next:before { content: '›'; }
+
         .pager {
             text-align: center;
             margin-top: 25px;
@@ -73,6 +82,7 @@
             font-weight: bold;
             color: #333;
         }
+
         @media (max-width: 768px) {
             .gallery-wrap {
                 width: 100%;
@@ -88,23 +98,77 @@
     </style>
 </head>
 <body>
+
     <div class="gallery-wrap">
         <div class="slider">
-            <div class="slide-item"><img src="image1.jpg" alt="Фото 1"></div>
-            <div class="slide-item"><img src="image2.jpg" alt="Фото 2"></div>
-            <div class="slide-item"><img src="image3.jpg" alt="Фото 3"></div>
-            <div class="slide-item"><img src="image4.jpg" alt="Фото 4"></div>
-            <div class="slide-item"><img src="image5.jpg" alt="Фото 5"></div>
-            <div class="slide-item"><img src="image6.jpg" alt="Фото 6"></div>
-            <div class="slide-item"><img src="image7.jpg" alt="Фото 7"></div>
-            <div class="slide-item"><img src="image8.jpg" alt="Фото 8"></div>
+            <div class="slide-item"><img src="image1.jpg" class="slide-img" alt="Фото 1"></div>
+            <div class="slide-item"><img src="image2.jpg" class="slide-img" alt="Фото 2"></div>
+            <div class="slide-item"><img src="image3.jpg" class="slide-img" alt="Фото 3"></div>
+            <div class="slide-item"><img src="image4.jpg" class="slide-img" alt="Фото 4"></div>
+            <div class="slide-item"><img src="image5.jpg" class="slide-img" alt="Фото 5"></div>
+            <div class="slide-item"><img src="image6.jpg" class="slide-img" alt="Фото 6"></div>
+            <div class="slide-item"><img src="image7.jpg" class="slide-img" alt="Фото 7"></div>
+            <div class="slide-item"><img src="image8.jpg" class="slide-img" alt="Фото 8"></div>
         </div>
+
         <div class="pager">
             Страница <span id="current-page">1</span> из <span id="total-pages">1</span>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <script src="jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="script.js"></script>
+    <script>
+        $(document).ready(function() {
+            var $slider = $('.slider');
+            var $currentPage = $('#current-page');
+            var $totalPages = $('#total-pages');
+
+            $slider.slick({
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                infinite: false,
+                arrows: true,
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+
+            function updatePager(slick) {
+                var currentSlide = slick.currentSlide;
+                var slidesToShow = slick.options.slidesToShow;
+                var totalSlides = slick.slideCount;
+                
+                var maxPages = totalSlides - slidesToShow + 1;
+                var pageNum = currentSlide + 1;
+                
+                if (pageNum > maxPages) {
+                    pageNum = maxPages;
+                }
+
+                $currentPage.text(pageNum);
+                $totalPages.text(maxPages);
+            }
+
+            $slider.on('init', function(event, slick) {
+                updatePager(slick);
+            });
+
+            $slider.on('afterChange', function(event, slick, currentSlide) {
+                updatePager(slick);
+            });
+
+            setTimeout(function() {
+                var slick = $slider.slick('getSlick');
+                updatePager(slick);
+            }, 100);
+        });
+    </script>
 </body>
 </html>

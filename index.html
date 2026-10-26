@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,41 +7,64 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             margin: 0;
             padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
         .gallery-container {
             width: 100%;
-            max-width: 900px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
+            max-width: 950px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 24px;
         }
 
         .slider {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .slide-item {
-            padding: 0 10px;
-            box-sizing: border-box;
+            padding: 0 12px;
             outline: none;
+        }
+
+        .slide-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .slide-card:hover {
+            transform: translateY(-4px);
         }
 
         .slide-item img {
             width: 100%;
-            height: 250px;
+            height: 220px;
             object-fit: cover;
-            border-radius: 4px;
+            display: block;
         }
 
         .slick-prev, .slick-next {
@@ -49,17 +73,24 @@
             position: absolute;
             top: 50%;
             display: block;
-            width: 40px;
-            height: 40px;
+            width: 46px;
+            height: 46px;
             padding: 0;
             transform: translateY(-50%);
             cursor: pointer;
             color: transparent;
             border: none;
             outline: none;
-            background: rgba(0, 0, 0, 0.5);
+            background: #2c3e50;
             border-radius: 50%;
             z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .slick-prev:hover, .slick-next:hover {
+            background: #1a252f;
+            transform: translateY(-50%) scale(1.05);
         }
 
         .slick-prev { left: -25px; }
@@ -78,12 +109,22 @@
         .pager {
             text-align: center;
             font-size: 16px;
-            color: #333;
-            font-weight: bold;
-            margin-top: 15px;
+            color: #555;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .pager span {
+            color: #2c3e50;
         }
 
         @media (max-width: 768px) {
+            .gallery-container {
+                padding: 20px;
+            }
             .slick-prev { left: -10px; }
             .slick-next { right: -10px; }
         }
@@ -92,6 +133,7 @@
 <body>
 
     <div class="gallery-container">
+        <h1>Галерея изображений</h1>
         <div class="slider">
             <div class="slide-item"><img src="image1.jpg" alt="Фото 1"></div>
             <div class="slide-item"><img src="image2.jpg" alt="Фото 2"></div>

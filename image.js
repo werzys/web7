@@ -1,7 +1,17 @@
-$(document).ready(function() {
-    var $slider = $('.slider');
-    var $currentPage = $('#current-page');
-    var $totalPages = $('#total-pages');
+/*global $*/
+$(document).ready(function () {
+    const $slider = $(".slider");
+    const $currentPage = $("#current-page");
+    const $totalPages = $("#total-pages");
+
+    function updatePager(event, slick) {
+        const total = Math.max(1, slick.slideCount - slick.options.slidesToShow + 1);
+        const current = Math.min(slick.currentSlide + 1, total);
+        $currentPage.text(current);
+        $totalPages.text(total);
+    }
+
+    $slider.on("init reInit afterChange breakpoint", updatePager);
 
     $slider.slick({
         slidesToShow: 3,
@@ -18,33 +28,4 @@ $(document).ready(function() {
             }
         ]
     });
-
-    function updatePager(slick) {
-        var currentSlide = slick.currentSlide;
-        var slidesToShow = slick.options.slidesToShow;
-        var totalSlides = slick.slideCount;
-        
-        var maxPages = totalSlides - slidesToShow + 1;
-        var pageNum = currentSlide + 1;
-        
-        if (pageNum > maxPages) {
-            pageNum = maxPages;
-        }
-
-        $currentPage.text(pageNum);
-        $totalPages.text(maxPages);
-    }
-
-    $slider.on('init', function(event, slick) {
-        updatePager(slick);
-    });
-
-    $slider.on('afterChange', function(event, slick, currentSlide) {
-        updatePager(slick);
-    });
-
-    setTimeout(function() {
-        var slick = $slider.slick('getSlick');
-        updatePager(slick);
-    }, 100);
 });

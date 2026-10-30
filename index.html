@@ -2,68 +2,104 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Галерея</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #d0f0fd;
             margin: 0;
+            padding: 20px 10px;
+            min-height: 100vh;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px 0;
         }
-        .gallery-container {
-            width: 900px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            position: relative;
+
+        .gallery-container,
+        .footer {
+            width: 100%;
+            max-width: 900px;
             box-sizing: border-box;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-container {
+            padding: 30px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            padding: 15px;
+            text-align: center;
+            color: #6c757d;
+        }
+
+        .footer p {
+            margin: 0;
         }
         .slider img {
-            width: 260px;
+            display: block;
+            width: 100%;
             height: 320px;
             object-fit: cover;
-            margin: 0 auto;
             border-radius: 6px;
-            display: block;
         }
+
         .slick-slide {
             padding: 0 10px;
             box-sizing: border-box;
             outline: none;
         }
-        .slick-prev, .slick-next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+
+        .slick-prev,
+        .slick-next {
             z-index: 100;
             width: 40px;
             height: 40px;
             background: #333;
             border-radius: 50%;
-            cursor: pointer;
-            border: none;
-            color: transparent;
-            outline: none;
         }
-        .slick-prev { left: -15px; }
-        .slick-next { right: -15px; }
-        .slick-prev:before, .slick-next:before {
+
+        /* slick-theme делает кнопку прозрачной при hover/focus,
+           белая стрелка на белом фоне пропадала. */
+        .slick-prev:hover,
+        .slick-prev:focus,
+        .slick-next:hover,
+        .slick-next:focus {
+            background: #555;
+        }
+
+        .slick-prev {
+            left: -15px;
+        }
+
+        .slick-next {
+            right: -15px;
+        }
+
+        .slick-prev:before,
+        .slick-next:before {
             color: #fff;
             font-size: 22px;
-            font-family: Arial;
+            font-family: Arial, sans-serif;
             opacity: 1;
         }
-        .slick-prev:before { content: '‹'; }
-        .slick-next:before { content: '›'; }
+
+        .slick-prev:before {
+            content: "‹";
+        }
+
+        .slick-next:before {
+            content: "›";
+        }
+
         .pager {
             text-align: center;
             margin-top: 20px;
@@ -71,89 +107,49 @@
             font-size: 16px;
             color: #333;
         }
-        .footer {
-            width: 900px;
-        }
+
         @media (max-width: 768px) {
-            .gallery-container, .footer {
-                width: 100%;
+            .gallery-container {
                 padding: 15px;
             }
+
             .slider img {
-                width: 100%;
                 height: 350px;
             }
-            .slick-prev { left: -5px; }
-            .slick-next { right: -5px; }
+
+            .slick-prev {
+                left: -5px;
+            }
+
+            .slick-next {
+                right: -5px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="gallery-container">
+    <main class="gallery-container">
         <div class="slider">
-            <div><img src="image1.jpg" alt=""></div>
-            <div><img src="image2.jpg" alt=""></div>
-            <div><img src="image3.jpg" alt=""></div>
-            <div><img src="image4.jpg" alt=""></div>
-            <div><img src="image5.jpg" alt=""></div>
-            <div><img src="image6.jpg" alt=""></div>
-            <div><img src="image7.jpg" alt=""></div>
-            <div><img src="image8.jpg" alt=""></div>
+            <div><img src="image1.jpg" alt="Изображение 1"></div>
+            <div><img src="image2.jpg" alt="Изображение 2"></div>
+            <div><img src="image3.jpg" alt="Изображение 3"></div>
+            <div><img src="image4.jpg" alt="Изображение 4"></div>
+            <div><img src="image5.jpg" alt="Изображение 5"></div>
+            <div><img src="image6.jpg" alt="Изображение 6"></div>
+            <div><img src="image7.jpg" alt="Изображение 7"></div>
+            <div><img src="image8.jpg" alt="Изображение 8"></div>
         </div>
         <div class="pager">
-            Страница <span id="current-page">1</span> из <span id="total-pages">1</span>
+            Страница <span id="current-page">1</span> из <span id="total-pages">6</span>
         </div>
-    </div>
+    </main>
 
-    <footer class="footer container mt-4">
-        <div class="p-3 bg-white border rounded shadow-sm text-center">
-            <p class="footer__text m-0 text-muted">(с) Перетолчин Данил</p>
-        </div>
+    <footer class="footer">
+        <p>(с) Перетолчин Данил</p>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            var $slider = $('.slider');
-            
-            $slider.slick({
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                infinite: false,
-                arrows: true,
-                responsive: [
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    }
-                ]
-            });
-
-            function updatePager(slick) {
-                var current = slick.currentSlide + 1;
-                var slidesToShow = slick.options.slidesToShow;
-                var maxPages = slick.slideCount - slidesToShow + 1;
-                if (current > maxPages) current = maxPages;
-                $('#current-page').text(current);
-                $('#total-pages').text(maxPages);
-            }
-
-            $slider.on('init', function(event, slick){
-                updatePager(slick);
-            });
-
-            $slider.on('afterChange', function(event, slick, currentSlide){
-                updatePager(slick);
-            });
-
-            setTimeout(function(){
-                updatePager($slider.slick('getSlick'));
-            }, 50);
-        });
-    </script>
+    <script src="gallery.js"></script>
 </body>
 </html>
